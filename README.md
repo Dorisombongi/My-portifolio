@@ -14,4 +14,3 @@
 ## Experience: Detailed professional experience, including job titles, companies, and descriptions of roles.
 
 ## Education: Include the educational background.
-![image](https://github.com/user-attachments/assets/3da58669-2602-4883-a478-2b383b8c7ce3)
