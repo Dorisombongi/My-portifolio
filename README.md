@@ -1,5 +1,6 @@
 # My-portifolio
 ## MY PORTIFOLIO: [My portifolio link](https://dorisombongi.github.io/My-portifolio/)
+![image](https://github.com/user-attachments/assets/29fadac0-9267-4723-8499-5dc8586ff06f)
 
 ## A one page portfolio website that showcases my skills, projects and professional experience. 
 ## The portifolio includes:
