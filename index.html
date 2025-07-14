@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - DORIS OMBONGI</title>
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -12,227 +16,666 @@
             background-color: #00274d;
             color: #ffffff;
             font-style: italic;
+            position: relative; /* For toggle button positioning */
         }
+
+        /* Header */
         header {
             background-color: #001f3f;
             color: gold;
             padding: 20px;
             text-align: center;
         }
-        .container {
-            display: flex;
+
+        nav {
+            margin-top: 10px;
             flex-wrap: wrap;
-            width: 90%;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav a {
+            margin: 5px;
+            padding: 8px 12px;
+            background: gold;
+            color: #00274d;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background: #ffd700;
+        }
+
+        /* Main Container for all content */
+        .container {
+            width: 95%;
             margin: 20px auto;
-        }
-        .main-content, .sidebar {
-            padding: 20px;
-            margin: 10px;
+            padding: 20px; /* Add padding to the container */
+            background-color: #004080; /* Apply background to the whole container */
             border-radius: 8px;
+            box-sizing: border-box; /* Include padding in the width */
         }
-        .main-content {
-            flex: 2;
-            background-color: #004080;
-        }
-        .sidebar {
-            flex: 1;
-            background-color: #003366;
-        }
-        h1, h2, h3 {
+
+        h1,
+        h2,
+        h3 {
             color: gold;
         }
+
+        /* Override heading color in light mode */
+        body.light h1,
+        body.light h2,
+        body.light h3 {
+            color: #001f3f;
+        }
+
+        section:hover h2 {
+            color: #ffcc00;
+            transition: 0.3s ease-in-out;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+        }
+
         a {
             color: gold;
             text-decoration: none;
         }
+
         a:hover {
             text-decoration: underline;
         }
-        .portfolio-item img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            max-height: 150px;
-        }
+
         ul {
             list-style-type: none;
             padding: 0;
         }
-        ul li {
+
+        ul li,
+        .project-item {
             background: #00509e;
             margin-bottom: 10px;
             padding: 10px;
             border-left: 5px solid gold;
             border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
+        .bio {
+            background: #00509e;
+            padding: 15px;
+            border-left: 5px solid gold;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .bio:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+        }
+
+        ul li:hover,
+        .project-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+        }
+
         footer {
             background-color: #001f3f;
             color: gold;
             text-align: center;
             padding: 10px 0;
-            position: fixed;
-            bottom: 0;
             width: 100%;
         }
+
+        /* --- Page Layout Adjustments (Continuous Page) --- */
+
+        /* First Section: Job Title, Professional Summary, Pic */
+        .first-section-layout {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px; /* Increased gap */
+            margin-bottom: 40px; /* Space before next section */
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+
+        .professional-summary-column {
+            flex: 1; /* Takes up available space */
+            min-width: 300px; /* Minimum width before wrapping */
+        }
+
+        .profile-pic-column {
+            flex-shrink: 0; /* Prevents picture from shrinking */
+            width: 250px; /* Fixed width for the picture column */
+            text-align: center;
+        }
+
         .profile-picture {
-            display: block;
-            margin: 0 auto 20px;
             border-radius: 50%;
-            width: 150px;
-            height: 150px;
+            width: 250px; /* Larger picture width */
+            height: 250px; /* Larger picture height */
+            object-fit: cover;
+            border: 5px solid gold; /* Thicker border */
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); /* Subtle glow */
+        }
+
+        /* Skills Grid (Fixed 4 Columns) */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Fixed 4 columns */
+            gap: 20px; /* Increased gap */
+            margin-top: 20px;
+        }
+
+        .skills-grid li {
+            text-align: center;
+            padding: 15px;
+        }
+
+        /* Projects Grid (Fixed 3 Columns) */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Fixed 3 columns */
+            gap: 30px; /* Increased gap */
+            margin-top: 20px;
+        }
+
+        .project-item img {
+            width: 100%;
+            height: 200px; /* Slightly taller images */
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        /* Section Spacing */
+        section {
+            margin-bottom: 40px; /* Add space between sections */
+            padding-bottom: 20px; /* Add internal padding to sections */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle separator */
+        }
+
+        section:last-of-type {
+            border-bottom: none; /* No separator for the last section */
+            margin-bottom: 0;
+        }
+
+        /* Light Mode */
+        body.light {
+            background-color: #ffffff;
+            color: #00274d;
+        }
+
+        body.light .container {
+            background-color: #f0f4f8;
+        }
+
+        body.light ul li,
+        body.light .project-item,
+        body.light .bio,
+        body.light .skills-grid li {
+            background-color: #dce6f2;
+            color: #00274d;
+        }
+
+        body.light a {
+            color: #004080;
+        }
+
+        body.light footer {
+            background-color: #001f3f;
+            color: gold;
+        }
+
+        body.light header {
+            background-color: #eaeaea; /* light gray background */
+            color: #001f3f; /* dark blue text */
+        }
+
+        body.light section {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Lighter separator */
+        }
+
+        #toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 50%;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            background: #ffffff;
+            color: #001f3f;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s, color 0.3s;
+            z-index: 9999;
+        }
+
+        /* Back to Top Button */
+        #back-to-top-btn {
+            display: none; /* Hidden by default */
+            position: fixed; /* Fixed position */
+            bottom: 30px; /* 30px from the bottom */
+            right: 30px; /* 30px from the right */
+            z-index: 999; /* Make sure it's above other content */
+            border: none; /* Remove borders */
+            outline: none; /* Remove outline */
+            background-color: gold; /* Set a background color */
+            color: #00274d; /* Text color */
+            cursor: pointer; /* Add a mouse pointer on hover */
+            padding: 15px; /* Some padding */
+            border-radius: 50%; /* Rounded corners */
+            font-size: 20px; /* Increase font size */
+            transition: background-color 0.3s, opacity 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #back-to-top-btn:hover {
+            background-color: #ffd700; /* Darker background on hover */
+        }
+
+        body.light #back-to-top-btn {
+            background-color: #004080;
+            color: gold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        body.light #back-to-top-btn:hover {
+            background-color: #003366;
+        }
+
+        /* Modal for Certificate */
+        #certificateModal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        #certificateModal>div {
+            background-color: #fefefe;
+            margin: 5% auto; /* Adjust margin for larger view */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%; /* Make modal wider */
+            max-width: 1000px; /* Max width for large screens */
+            height: 90vh; /* Make modal taller to fit PDF */
+            max-height: 90vh; /* Ensure it doesn't exceed viewport height */
+            border-radius: 10px;
+            position: relative;
+            display: flex; /* Use flexbox for inner content */
+            flex-direction: column; /* Stack header and iframe */
+        }
+
+        #certificateModal .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        #certificateModal .modal-title {
+            color: #001f3f; /* Dark text for modal title */
+            margin: 0;
+        }
+
+        #certificateModal .close-button {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #certificateFrame {
+            width: 100%;
+            flex-grow: 1; /* Allow iframe to take remaining height */
+            border: none;
+        }
+
+        /* Style for the "View Certificate" button */
+        .view-certificate-btn {
+            background-color: gold;
+            color: #00274d;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-left: auto; /* Pushes the button to the right */
+            flex-shrink: 0; /* Prevent button from shrinking */
+        }
+
+        .view-certificate-btn:hover {
+            background-color: #ffd700;
+        }
+
+        /* Adjust ul li to use flexbox for horizontal alignment */
+        #courses ul li,
+        #education ul li {
+            display: flex;
+            justify-content: space-between; /* Distribute space between content and button */
+            align-items: center; /* Vertically align items */
+            gap: 15px; /* Space between content and button */
+        }
+
+        #courses ul li div,
+        #education ul li div {
+            flex-grow: 1; /* Allow the content div to take available space */
+        }
+
+
+        /* Responsive adjustments for the modal */
+        @media (max-width: 768px) {
+            #certificateModal>div {
+                width: 95%;
+                margin: 2.5% auto;
+                height: 95vh;
+                max-width: 95%;
+            }
+
+            #courses ul li,
+            #education ul li {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .view-certificate-btn {
+                margin-top: 10px;
+                margin-left: 0;
+                width: 100%; /* Full width button on smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-picture {
+                width: 200px;
+                height: 200px;
+            }
         }
     </style>
 </head>
-<body>
+
+<body id="page">
     <header>
         <h1>DORIS OMBONGI</h1>
-        <p>DATA SCIENTIST | ANALYST | DATA ENTRY SPECIALIST | RESEARCHER |</p>
+        <nav>
+            <a href="#about">ABOUT</a>
+            <a href="#skills">SKILLS</a>
+            <a href="#experience">EXPERIENCE</a>
+            <a href="#projects">PROJECTS</a>
+            <a href="#courses">COURSES</a>
+            <a href="#education">EDUCATION</a>
+            <a href="#references">REFERENCES</a>
+        </nav>
     </header>
 
     <div class="container">
-        <div class="main-content">          
-            <section class="bio">
-                <h2>ABOUT ME</h2>
-                <p>Data-driven professional with expertise in research, data analysis and visualization. Proficient in leveraging tools like Python, Excel and Power BI to extract insights and drive decision-making. Seeking an opportunity to apply my analytical skills in a dynamic, growth-oriented environment.</p>
-                <p>Contact: ombongidoris@gmail.com | +254713898533</p>
-                <p>LinkedIn: <a href="https://www.linkedin.com/dorisombongi">linkedin.com/in/doris-ombongi-344728126</a></p>
-                <p>GitHub: <a href="https://github.com/dorisombongi">github.com/dorisombongi</a></p>
-            </section>
+        <section id="about" class="first-section-layout">
+            <div class="professional-summary-column">
+                <h2>ANALYST</h2>
+                <div class="bio">
+                    <h3>PROFESSIONAL SUMMARY</h3>
+                    <p>Detail-oriented and data-driven Analyst with hands-on experience in data collection, analysis, and visualization across the public health and transportation sectors. Proficient in tools such as Python, R, SQL, Tableau, Power BI, and Excel, with a solid foundation in statistical modeling and database management. Adept at transforming raw data into actionable insights to inform decision-making and drive operational efficiency. Known for a strong work ethic, analytical rigor, and effective communication skills. Eager to contribute to dynamic teams solving real-world problems using data.</p>
+                    <p>Contact: <a href="mailto:ombongidoris@gmail.com" target="_blank">ombongidoris@gmail.com</a> | +254713898533</p>
+                    <p>LinkedIn: <a href="https://www.linkedin.com/in/doris-ombongi-344728126" target="_blank">linkedin.com/in/doris-ombongi-344728126</a></p>
+                    <p>GitHub: <a href="https://github.com/dorisombongi" target="_blank">github.com/dorisombongi</a></p>
+                </div>
+            </div>
+            <div class="profile-pic-column">
+                <img src="doris.jpg" class="profile-picture" alt="Doris Ombongi Profile Picture">
+            </div>
+        </section>
 
-            <section class="projects">
-                <h2>PROJECTS</h2>
+        <section id="skills">
+            <h2>SKILLS</h2>
+            <ul class="skills-grid">
+                <li>Python</li>
+                <li>MySQL</li>
+                <li>POWER BI</li>
+                <li>TABLEAU</li>
+                <li>Microsoft Office (Excel, Word, PowerPoint, Access)</li>
+                <li>R</li>
+                <li>SPSS</li>
+                <li>Eviews</li>
+                <li>Web Development</li>
+                <li>Research</li>
+                <li>Data Collection & Data Entry</li>
+                <li>Data Analysis</li>
+                <li>Data Visualization</li>
+            </ul>
+        </section>
+
+        <section id="experience">
+            <h2>EXPERIENCE</h2>
+            <ul>
+                <li>
+                    <h3>BOOKING CLERK</h3>
+                    <p>ENA INVESTMENTS | FEB 2024 - DEC 2024</p>
+                    <p>• Efficiently managed and processed bookings and reservations for passengers and parcel deliveries, ensuring accuracy and timeliness.</p>
+                    <p>• Assisted in customer inquiries and provided efficient service to improve user experience.</p>
+                    <p>• Utilized data management tools to track and optimize reservation records.</p>
+                </li>
+                <li>
+                    <h3>DATA ENTRY CLERK AND ANALYST</h3>
+                    <p>AMREF | JUL 2021 - NOV 2023</p>
+                    <p>• Updated customer information in the COVID-19 website database.</p>
+                    <p>• Transferred data from hard copy to a digital database.</p>
+                    <p>• Analyzed data using excel.</p>
+                    <p>• Gave weekly reports</p>
+                    <p>• Interacted respectfully with customers inquiring about the services they needed.</p>
+                </li>
+                <li>
+                    <h3>STATISTICIAN ATTACHEE</h3>
+                    <p>THE NATIONAL TREASURY AND PLANNING | JUN 2018 - SEP 2018</p>
+                    <p>• Analyzed data using various software after research and numerous data collections.</p>
+                    <p>• Analyzed relationships between macroeconomic variables and estimated their trends.</p>
+                </li>
+            </ul>
+        </section>
+
+        <section id="projects">
+            <h2>PROJECTS</h2>
+            <div class="projects-grid">
                 <div class="project-item">
                     <h3>We Rate Dogs</h3>
-                    <img src="dog.jpg" width = "300" height = "100">
-                    <p>We have three datasets about dogs which were downloaded, cleaned then merged for analysis.<a href="https://github.com/Dorisombongi/WeRateDogs-Data-Analysis">GitHub Repository</a></p>
+                    <img src="dog.jpg" alt="Dog Ratings Project">
+                    <p>We have three datasets about dogs which were downloaded, cleaned then merged for analysis.<br><a href="https://github.com/Dorisombongi/WeRateDogs-Data-Analysis" target="_blank">GitHub Repository</a></p>
                 </div>
                 <div class="project-item">
                     <h3>Ford Go Bike</h3>
-                    <img src="bike.jpg" width = "300" height = "100">
-                    <p>In this investigation, I aimed to look at the characteristics of bike trips that could be used to predict trip duration. The main focus was on age and user type. <a href="https://github.com/Dorisombongi/Ford-Go-Bike-Project">GitHub Repository</a></p>
+                    <img src="bike.jpg" alt="Ford Go Bike Project">
+                    <p>In this investigation, I aimed to look at the characteristics of bike trips that could be used to predict trip duration. The main focus was on age and user type.<br><a href="https://github.com/Dorisombongi/Ford-Go-Bike-Project" target="_blank">GitHub Repository</a></p>
                 </div>
                 <div class="project-item">
                     <h3>No Show Appointment</h3>
-                    <img src="appointment.jpg" width = "300" height = "100">
-                    <p>This dataset collects information from 110527 medical appointments in Brazil and is focused on the question of whether or not patients show up for their appointment.<a href="https://github.com/Dorisombongi/No-show-Appointments">GitHub Repository</a></p>
+                    <img src="appointment.jpg" alt="No Show Appointment Project">
+                    <p>This dataset collects information from 110527 medical appointments in Brazil and is focused on the question of whether or not patients show up for their appointment.<br><a href="https://github.com/Dorisombongi/No-show-Appointments" target="_blank">GitHub Repository</a></p>
                 </div>
                 <div class="project-item">
                     <h3>Website Developing</h3>
-                    <img src="store.jpg" width = "300" height = "100">
-                    <p>I wrote a html file with an internal css file to create a website about a store that offers services and sells hair products <a href="https://dorisombongi.github.io/Hair-products/">GitHub Page</a></p>
+                    <img src="store.jpg" alt="Website Development Project">
+                    <p>I wrote a html file with an internal css file to create a website about a store that offers services and sells hair products.<br><a href="https://dorisombongi.github.io/Hair-products/" target="_blank">GitHub Page</a></p>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section class="experience">
-                <h2>EXPERIENCE</h2>
-                <ul>
-                    <li>
-                        <h3>BOOKING CLERK</h3>
-                        <p>ENA INVESTMENTS | FEB 2024 - DEC 2024</p>
-                        <p>• Efficiently managed and processed bookings and reservations for passengers and parcel deliveries, ensuring accuracy and timeliness. </p>
-                        <p>• Assisted in customer inquiries and provided efficient service to improve user experience.<p>
-                        <p>• Utilized data management tools to track and optimize reservation records.<p>
-                        
-                    </li>
-                    <li>
-                        <h3>DATA ENTRY CLERK AND ANALYST</h3>
-                        <p>AMREF | JUL 2021 - NOV 2023</p>
-                        <p>• Updated customer information in the COVID-19 website database.</p>
-                        <p>• Transferred data from hard copy to a digital database.<p>
-                        <p>• Analyzed data using excel.<p>
-                        <p>• Gave weekly reports<p>
-                        <p>• Interacted respectfully with customers inquiring about the services they needed.<p>
-                    </li>
-                
-                    <li>
-                        <h3>STATISTICIN ATTACHEE</h3>
-                        <p>THE NATIONAL TREASURY AND PLANNING | JUN 2018 - SEP 2018 </p>
-                        <p>• Analyzed data using various software after research and numerous data collections and Analyzed relationships between macroeconomic variables and estimated their trends. </p>
-                    </li>
-                </ul>
-            </section>
-
-            <section class="education">
-                <h2>EDUCATION</h2>
-                <ul>
-                    <li>
-                        <h3>BACHELOR OF SCIENCE(STATISTICS)</h3>
-                        <p>SOUTH EASTERN KENYA UNIVERSITY | 2015 - 2019</p>
-                    </li>
-                </ul>
-            </section>
-        </div>
-
-        <div class="sidebar">
-            <img src="doris.jpg" class="profile-picture">
-            <section class="skills">
-                <h2>SKILLS</h2>
-                <ul>
-                    <li>Python & R </li>
-                    <li>Web Development</li>
-                    <li>SPSS & Eviews</li>
-                    <li>MySQL</li>
-                    <li>POWER BI & TABLEAU</li>
-                    <li>Microsoft office</li>
-                    <li>Research</li>
-                    <li>Data collection & entry</li>
-                    <li>Data Analysis & Visualization</li>
-                </ul>
-            </section>
-
-            <section class="courses">
-                <h2>COURSES</h2>
-                <ul>
-                    <li>
+        <section id="courses">
+            <h2>COURSES</h2>
+            <ul>
+                <li>
+                    <div>
                         <h3>Software Engineering</h3>
-                        <p>PLP ACADEMY | Jun 2024 - Dec 2024 </p>
-                    </li>
-                    <li>
+                        <p>PLP ACADEMY | Jun 2024 - Dec 2024</p>
+                    </div>
+                    <button class="view-certificate-btn" onclick="openModal('software-engineering-certificate.pdf', 'Software Engineering Certificate');">View Certificate</button>
+                </li>
+                <li>
+                    <div>
                         <h3>ALX-T Data Analytics Nanodegree</h3>
-                        <p>UDACITY | May 2022 - Aug 2022 </p>
-                    </li>
-                </ul>
-            </section>
+                        <p>UDACITY | May 2022 - Aug 2022</p>
+                    </div>
+                    <button class="view-certificate-btn" onclick="openModal('alx-data-analytics-certificate.pdf', 'ALX-T Data Analytics Certificate');">View Certificate</button>
+                </li>
+            </ul>
+        </section>
 
-            <section class="certifications">
-                <h2>CERTIFICATES AND TRAININGS</h2>
-                <ul>
-                    <li>Python</li>
-                    <li>MySQL</li>
-                    <li>R</li>
-                    <li>Eviews</li>
-                </ul>
-            </section>
+        <section id="education">
+            <h2>EDUCATION</h2>
+            <ul>
+                <li>
+                    <div>
+                        <h3>BACHELOR OF SCIENCE (STATISTICS)</h3>
+                        <p>SOUTH EASTERN KENYA UNIVERSITY - SECOND CLASS UPPER DIVISION</p>
+                    </div>
+                    <button class="view-certificate-btn" onclick="openModal('bachelor-of-science-statistics.pdf', 'Bachelor of Science (Statistics) Certificate');">View Certificate</button>
+                </li>
+                <li>
+                    <div>
+                        <h3>KCSE</h3>
+                        <p>ST. ANGELA SENGERA GIRLS - B+</p>
+                    </div>
+                    <button class="view-certificate-btn" onclick="openModal('ksce-certificate.pdf', 'KCSE Certificate');">View Certificate</button>
+                </li>
+            </ul>
+        </section>
 
-            <section class="references">
-                <h2>REFERENCES</h2>
-                <ul>
-                    <li>
-                        <h3>Paul Nyareru</h3>
-                        <p>Manager - ENA INVESTMENTS</p>
-                        <p>Email: gonypaul70@gmail.com </p>
-                        <p>Phone: +254720922030 </p>
-                    </li>
-                    <li>
-                        <h3>Joram Onditi</h3>
-                        <p>Project Manager - AMREF</p>
-                        <p>Email: joram.onditi@amref.org</p>
-                        <p>Phone: +254722476542</p>
-                    </li>
-                    <li>
-                        <h3>Concepta Osinde</h3>
-                        <p>Nurse - KISII COUNTY</p>
-                        <p>Email: osindec15@gmail.com</p>
-                        <p>Phone: +254727637090</p>
-                    </li>
-                    
-                </ul>
-            </section>
+        <section id="references">
+            <h2>REFERENCES</h2>
+            <ul>
+                <li>
+                    <h3>Paul Nyareru</h3>
+                    <p>Manager - ENA INVESTMENTS</p>
+                    <p>Email: gonypaul70@gmail.com</p>
+                    <p>Phone: +254720922030</p>
+                </li>
+                <li>
+                    <h3>Joram Onditi</h3>
+                    <p>Project Manager - AMREF</p>
+                    <p>Email: joram.onditi@amref.org</p>
+                    <p>Phone: +254722476542</p>
+                </li>
+                <li>
+                    <h3>Concepta Osinde</h3>
+                    <p>Nurse - KISII COUNTY</p>
+                    <p>Email: osindec15@gmail.com</p>
+                    <p>Phone: +254727637090</p>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <div id="certificateModal">
+        <div>
+            <div class="modal-header">
+                <h3 id="modalTitle"></h3>
+                <span class="close-button" onclick="closeModal()">&times;</span>
+            </div>
+            <iframe id="certificateFrame" src=""></iframe>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2024 Doris Ombongi</p>
+        <p>&copy; 2025 Doris Ombongi</p>
     </footer>
+
+    <button id="toggle-btn" onclick="toggleMode()" title="Toggle Light/Dark Mode">
+        🌙
+    </button>
+
+    <button onclick="topFunction()" id="back-to-top-btn" title="Go to top">↑</button>
+
+    <script>
+        // Toggle Light/Dark Mode
+        function toggleMode() {
+            const body = document.getElementById('page');
+            const button = document.getElementById('toggle-btn');
+            body.classList.toggle('light');
+            if (body.classList.contains('light')) {
+                button.textContent = "🌙";
+                button.style.background = "#001f3f";
+                button.style.color = "white";
+            } else {
+                button.textContent = "🌞";
+                button.style.background = "#ffffff";
+                button.style.color = "#001f3f";
+            }
+        }
+
+        // Set initial button text and color on page load
+        window.onload = () => {
+            const button = document.getElementById('toggle-btn');
+            const body = document.getElementById('page'); // Get body to check for light class
+            if (body.classList.contains('light')) {
+                button.textContent = "🌙";
+                button.style.background = "#001f3f";
+                button.style.color = "white";
+            } else {
+                button.textContent = "🌞";
+                button.style.background = "#ffffff";
+                button.style.color = "#001f3f";
+            }
+        };
+
+
+        // Modal functions
+        function openModal(pdfUrl, title) {
+            const modal = document.getElementById('certificateModal');
+            const frame = document.getElementById('certificateFrame');
+            const modalTitle = document.getElementById('modalTitle');
+
+            frame.src = pdfUrl;
+            modalTitle.textContent = title; // Set the title
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('certificateModal');
+            const frame = document.getElementById('certificateFrame');
+            modal.style.display = 'none';
+            frame.src = ''; // Clear the iframe source when closing
+        }
+
+        // Optional: close modal on click outside
+        window.onclick = function (event) {
+            const modal = document.getElementById('certificateModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // --- Back to Top Button Logic ---
+        const backToTopButton = document.getElementById("back-to-top-btn");
+
+        // When the user scrolls down 200px from the top of the document, show the button
+        window.onscroll = function () {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+    </script>
 </body>
 </html>
